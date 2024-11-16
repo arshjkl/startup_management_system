@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation"
+import { fetchApi } from "../utils/api"
 
 
 export default function Register() {
@@ -6,7 +7,7 @@ export default function Register() {
     async function register(formdata:FormData){
         'use server'
         console.log(formdata)
-        const res = await fetch("http://127.0.0.1:8000/users/register/",{
+        const res = await fetchApi("users/register/",{
             "method":"POST",
             "body":formdata
         })
@@ -26,11 +27,11 @@ export default function Register() {
                 <div className="flex flex-row gap-2 w-full justify-between px-3">
                     <div>
                         <input type="radio" id="founder" name="type" value="founder" defaultChecked={true}/>
-                        <label htmlFor="founder">Student</label>
+                        <label htmlFor="founder">Founder</label>
                     </div>
                     <div>
                         <input type="radio" id="student" name="type" value="student"/>
-                        <label htmlFor="student">Founder</label>
+                        <label htmlFor="student">Student</label>
                     </div>
                 </div>
                 <input type="submit" className="text-center w-fit px-2 bg-gray-300 text-blue-500 hover:cursor-pointer hover:shadow-md " value="Submit"/>

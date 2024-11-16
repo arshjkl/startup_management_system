@@ -30,9 +30,9 @@ class LoginAPI(APIView):
     authentication_classes = []
 
     def post(self,request,*args,**kwargs):
-        print(request.data)
         user = authenticate(request,**request.data)
         if user is None:
             return Response({"message":"Invalid credentials"},status=status.HTTP_400_BAD_REQUEST)
         login(request,user)
-        return Response({"message":"Logged in successfully"},status=status.HTTP_200_OK)
+        user_type = user.profile.user_type
+        return Response({"message":"Logged in successfully","user_type":user_type},status=status.HTTP_200_OK)

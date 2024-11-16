@@ -1,22 +1,35 @@
 import { redirect } from "next/navigation"
+import { fetchApi } from "../utils/api"
+
 
 
 export default function Login() {
 
     async function login(formdata:FormData){
         'use server'
-        const res = await fetch("http://127.0.0.1:8000/users/login/",{
-            "method":"POST",
-            "body":formdata
+        const res = await fetchApi("users/login/",{
+            method:"POST",
+            cache:"no-cache",
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify({
+                username:formdata.get("email"),
+                password:formdata.get("password")
+            })
         })
+
+
         
         if (res.status/100 == 2){
             let data = await res.json()
             console.log(data)
-            if(data.get("user_type") == "student"){
+            console.log(await res.headers)
+            if(data.user_type === "student"){
                 redirect("/student")
             }
-            else if(data.get("user_type") == "founder"){
+            else if(data.user_type == "founder"){
                 redirect("/founder")
             }
 
