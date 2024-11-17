@@ -15,7 +15,7 @@ class StartupListView(generics.ListAPIView):
     ordering = ["-founding_date"]
     
     def get_queryset(self):
-        if self.request.user.profile.user_type == "Founder":
+        if self.request.user.profile.user_type.upper() == "Founder".upper():
             return self.request.user.profile.startups.all()
         return Startup.objects.all()
     
@@ -33,7 +33,7 @@ class StartupDetailView(generics.RetrieveAPIView):
     
     
     def get_queryset(self):
-        if self.request.user.profile.user_type == "Founder":
+        if self.request.user.profile.user_type.upper() == "Founder".upper():
             return self.request.user.profile.startups.all()
         return Startup.objects.all()
     

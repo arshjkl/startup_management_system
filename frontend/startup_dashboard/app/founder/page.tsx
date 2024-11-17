@@ -41,12 +41,12 @@ function StartupAdditionForm(){
                 Add a new startup
             </div>
             <form className="w-full flex flex-col gap-2" action={addStartup}>
-                <input type="text" placeholder="Startup Name" name="name" className="w-full border border-black p-1 rounded-md"/>
-                <input type="text" placeholder="Startup Description" name="description" className="w-full border border-black p-1 rounded-md"/>
-                <input type="date" placeholder="Startup Founded Date" name="founded_date" className="w-full border border-black p-1 rounded-md"/>
-                <input type="text" placeholder="Domain" name="domain" className="w-full border border-black p-1 rounded-md"/>
-                <input type="number" placeholder="Valuation" name="valuation" className="w-full border border-black p-1 rounded-md"/>
-                <input type="text" placeholder="Investors (Comma seperated)" name="investors" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="text" placeholder="Startup Name" name="name" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="text" placeholder="Startup Description" name="description" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="date" placeholder="Startup Founded Date" name="founded_date" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="text" placeholder="Domain" name="domain" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="number" placeholder="Valuation" name="valuation" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="text" placeholder="Investors (Comma seperated)" name="investors" className="w-full border border-black p-1 rounded-md"/>
                 <input type="submit" value="Add Startup" className="w-full bg-blue-500 text-white p-1 rounded-md hover:cursor-pointer hover:shadow-md"/>
             </form>
         </div>

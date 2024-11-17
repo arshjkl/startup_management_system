@@ -26,11 +26,11 @@ export default function Register() {
                 <input type="password" name="password" placeholder="Password" className="w-full border border-black rounded-md p-1" required={true}/>
                 <div className="flex flex-row gap-2 w-full justify-between px-3">
                     <div>
-                        <input type="radio" id="founder" name="type" value="founder" defaultChecked={true}/>
+                        <input type="radio" id="founder" name="type" value="Founder" defaultChecked={true}/>
                         <label htmlFor="founder">Founder</label>
                     </div>
                     <div>
-                        <input type="radio" id="student" name="type" value="student"/>
+                        <input type="radio" id="student" name="type" value="Student"/>
                         <label htmlFor="student">Student</label>
                     </div>
                 </div>

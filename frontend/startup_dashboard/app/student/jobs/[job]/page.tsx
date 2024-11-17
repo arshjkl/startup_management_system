@@ -40,7 +40,7 @@ async function Apply({job}:any){
         <div className="w-full border border-black p-2 rounded-md mt-4">
             <form className="w-full flex flex-col gap-2 items-center" action={applyJob}>
                 <input type="hidden" name="job_id" value={job.static_id} className="w-full border border-black p-1 rounded-md"/>
-                <input type="file" placeholder="Resume URL" name="resume" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="file" placeholder="Resume URL" name="resume" className="w-full border border-black p-1 rounded-md"/>
                 <input type="submit" value="Apply" className="w-fit p-2 bg-blue-500 text-white rounded-md hover:cursor-pointer hover:shadow-md"/>
             </form>
         </div>

@@ -41,10 +41,10 @@ async function AddEmployee({startup}:StartupIDProps){
     return (
         <div className="w-full border border-black p-2 rounded-md mt-4">
             <form className="w-full flex flex-col gap-2 items-center" action={addEmployee}>
-                <input type="text" placeholder="Employee Name" name="name" className="w-full border border-black p-1 rounded-md"/>
-                <input type="text" placeholder="Employee Designation" name="designation" className="w-full border border-black p-1 rounded-md"/>
-                <input type="number" placeholder="Employee Salary" name="salary" className="w-full border border-black p-1 rounded-md"/>
-                <input type="date" placeholder="Employee Joining Date" name="joining_date" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="text" placeholder="Employee Name" name="name" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="text" placeholder="Employee Designation" name="designation" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="number" placeholder="Employee Salary" name="salary" className="w-full border border-black p-1 rounded-md"/>
+                <input required={true} type="date" placeholder="Employee Joining Date" name="joining_date" className="w-full border border-black p-1 rounded-md"/>
                 <input type="submit" value="Add Employee" className="w-fit p-2 bg-blue-500 text-white rounded-md hover:cursor-pointer hover:shadow-md"/>
             </form>
         </div>
@@ -123,7 +123,7 @@ async function AddJob({startup}:StartupIDProps){
     return (
         <div className="w-full border border-black p-2 rounded-md mt-4">
             <form className="w-full flex flex-col gap-2 items-center" action={addJob}>
-                <input type="text" placeholder="Job Title" name="title" className="w-full border border-black p-1 rounded-md"/>
+                <input type="text" placeholder="Job Title" required={true} name="title" className="w-full border border-black p-1 rounded-md"/>
                 <textarea placeholder="Job Description" name="description" className="w-full border border-black p-1 rounded-md"/>
                 <select name="job_type" className="w-full border border-black p-1 rounded-md">
                     <option value="Full Time">Full Time</option>
