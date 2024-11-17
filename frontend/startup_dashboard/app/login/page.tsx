@@ -1,8 +1,6 @@
 "use client"
 import { redirect, useRouter } from "next/navigation"
-import { fetchApi } from "../utils/api"
 import { FormEvent } from "react";
-import { log } from "console";
 
 
 

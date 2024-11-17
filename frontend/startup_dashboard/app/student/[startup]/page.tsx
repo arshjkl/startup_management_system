@@ -17,14 +17,14 @@ async function Jobs({startup_id}){
             <div className="grid grid-cols-6 gap-4">
                 {
                     jobs.map((job)=>
-                        <div className="border border-black p-4 rounded-md">
+                        <a className="border border-black p-4 rounded-md" href={`/student/jobs/${job.static_id}`}>
                             <p className="font-bold">
                                 {job.title}
                             </p>
                             <p>
                                 {job.job_type}
                             </p>
-                        </div>
+                        </a>
                     )
                 }
             </div>

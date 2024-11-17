@@ -57,26 +57,17 @@ async function Startups(){
     );
 }
 
-interface Application {
-    company: string
-    job: string
-    resume: string
-}
-
-interface ApplicationCardProps {
-    application: Application
-}
 
 
-function ApplicationCard({application}:ApplicationCardProps) {
+function ApplicationCard({application}:any) {
     return (
         <div className="rounded-lg border border-black p-2 text-md text-black flex flex-col">
             <p className="text-center font-bold">
-                {application.company}
+                {application.job.startup}
             </p>
             <div className="flex flex-row justify-between">
                 <p>
-                    Job: {application.job}
+                    Job: {application.job.title}
                 </p>
                 <a href={application.resume} target="_blank" className="text-blue-500 hover:underline">Resume</a>
             </div>
@@ -85,64 +76,15 @@ function ApplicationCard({application}:ApplicationCardProps) {
     );
 }
 
-function Applications(){
-    const applications:Application[] = [
-        {
-            company:"c1",
-            job: "j1",
-            resume: "https://google.com"
-        },
-        {
-            company:"c2",
-            job: "j2",
-            resume: "https://google.com"
+async function Applications(){
+    
+    const res = await fetchApiAuth("startups/applications/",{
+        method:"GET",
+        cache:"no-cache"
+    })
 
-        },
-        {
-            company:"c1",
-            job: "j1",
-            resume: "https://google.com"
-        },
-        {
-            company:"c2",
-            job: "j2",
-            resume: "https://google.com"
-
-        },
-        {
-            company:"c1",
-            job: "j1",
-            resume: "https://google.com"
-        },
-        {
-            company:"c2",
-            job: "j2",
-            resume: "https://google.com"
-
-        },
-        {
-            company:"c1",
-            job: "j1",
-            resume: "https://google.com"
-        },
-        {
-            company:"c2",
-            job: "j2",
-            resume: "https://google.com"
-
-        },
-        {
-            company:"c1",
-            job: "j1",
-            resume: "https://google.com"
-        },
-        {
-            company:"c2",
-            job: "j2",
-            resume: "https://google.com"
-
-        }
-    ]
+    const applications = await res.json()
+    console.log(applications)
 
     return (
         <div className="w-full flex flex-col gap-3 h-full ">

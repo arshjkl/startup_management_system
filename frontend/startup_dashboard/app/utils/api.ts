@@ -1,5 +1,6 @@
 export const BASE_URL = "http://127.0.0.1:8000"
 import { cookies } from 'next/headers'
+import { cache } from 'react'
 // export const BASE_URL = "http"
 
 
@@ -22,12 +23,13 @@ export async function  fetchApiAuth(url:string, data = {}) {
     })
 }
 
-export async function getProfile() {
-  const data = await fetchApiAuth('users/profile/', {
+export async function getUser() {
+  const data = await fetchApiAuth('users/get_user/', {
       method: 'GET',
       headers: {
           'Content-Type': 'application/json'
       },
+      cache: 'no-cache'
   }).catch(_ => {
       return null
   });

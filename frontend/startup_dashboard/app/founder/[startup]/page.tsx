@@ -166,12 +166,14 @@ async function Jobs({startup}:StartupIDProps){
             <div className="w-full flex h-full flex-row gap-2 overflow-x-scroll">
                 {
                     jobs.map((job:any)=>
-                        <form className="w-fit border border-black p-2 rounded-md flex flex-col h-full justify-between text-nowrap" action={deleteEmployee}>
-                            <input type="hidden" name="employee_id" value={job.static_id}/>
-                            <div className="text-lg font-bold">{job.title}</div>
-                            <div className="text-sm">{job.job_type}</div>
-                            <button className="bg-red-500 text-white p-1 w-fit rounded-md hover:cursor-pointer hover:shadow-md"><MdDelete className="text-black bg-white border-none p-0 w-fit hover:shadow-md"/></button>
-                        </form>
+                        <a href={`/founder/jobs/${job.static_id}`}>
+                            <form className="w-fit border border-black p-2 rounded-md flex flex-col h-full justify-between text-nowrap" action={deleteEmployee}>
+                                <input type="hidden" name="employee_id" value={job.static_id}/>
+                                <div className="text-lg font-bold">{job.title}</div>
+                                <div className="text-sm">{job.job_type}</div>
+                                <button className="bg-red-500 text-white p-1 w-fit rounded-md hover:cursor-pointer hover:shadow-md"><MdDelete className="text-black bg-white border-none p-0 w-fit hover:shadow-md"/></button>
+                            </form>
+                        </a>
                     )
                 }
             </div>
