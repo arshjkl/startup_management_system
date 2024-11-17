@@ -51,7 +51,7 @@ function AlreadyApplied({resume}:any){
     return (
         <div className="w-full border border-black p-2 rounded-md mt-4">
             <div className="w-full text-center">
-                You have already applied for this job with this <a href={resume} target="_blank" className="text-blue-500 hover:underline">
+                You have already applied for this job with this <a href={resume} target="_blank" className="text-blue-500 hover:underline hover:cursor-pointer">
                     resume
                 </a>
             </div>
@@ -90,7 +90,7 @@ export default async function Page({params}:PathParams){
         <div className="w-full h-full flex flex-col gap-2 p-4">
             <JobDetails job={job}/>
             {
-                job.application ? <AlreadyApplied resume={job.application.resume}/> : <Apply job={job}/>
+                job.application ? <AlreadyApplied resume={job.application}/> : <Apply job={job}/>
             }
         </div>
     )

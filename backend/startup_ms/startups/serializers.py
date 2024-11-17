@@ -1,6 +1,6 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
-from .models import Startup, Employee, Job
+from .models import Startup, Employee, Job, Application
 
 from users.serializers import ProfileSerializer
 
@@ -47,7 +47,34 @@ class EmployeeSerializer(ModelSerializer):
         
 class JobSerializer(ModelSerializer):
     
+    application = SerializerMethodField()
+    
     class Meta:
         model = Job
         fields = "__all__"
         read_only_fields = ["static_id"]
+        
+    def get_application(self,obj):
+        applicant = self.context["request"].user.profile
+        application = Application.objects.filter(job=obj,applicant=applicant).first()
+        if application:
+            return self.context["request"].build_absolute_uri(application.resume.url)
+        return None
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["startup"] = Startup.objects.get(jobs=instance).name
+        return data
+    
+class ApplicationSerializer(ModelSerializer):
+    
+    class Meta:
+        model = Application
+        fields = "__all__"
+        read_only_fields = ["static_id"]
+        
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data["job"] = JobSerializer(instance.job,context=self.context).data
+        data["applicant"] = ProfileSerializer(instance.applicant).data
+        return data

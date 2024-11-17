@@ -1,9 +1,10 @@
 from rest_framework import status,viewsets,generics
+from rest_framework.response import Response
 # Create your views here.
 
 
-from .models import Startup,Employee,Job
-from .serializers import EmployeeSerializer, StartupListSerializer,StartupCreateSerializer,StartupDetailSerializer,JobSerializer
+from .models import Startup,Employee,Job, Application
+from .serializers import EmployeeSerializer, StartupListSerializer,StartupCreateSerializer,StartupDetailSerializer,JobSerializer,ApplicationSerializer
 from .permissions import IsFounder,IsStudent
 from rest_framework.permissions import AllowAny,IsAuthenticated
 
@@ -80,3 +81,36 @@ class JobDeleteAPI(generics.DestroyAPIView):
         lookup_field = "static_id"
         lookup_url_kwarg = "static_id"
         queryset = Job.objects.all()
+
+class JobDetailAPI(generics.RetrieveAPIView):
+        
+    serializer_class = JobSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = "static_id"
+    lookup_url_kwarg = "static_id"
+    queryset = Job.objects.all()
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        return {**context,"request":self.request}
+
+class ApplicationListCreateAPI(generics.ListCreateAPIView):
+    
+    serializer_class = ApplicationSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        job_static_id = self.request.query_params.get("job_static_id","all")
+        if job_static_id == "all":
+            return Application.objects.filter(applicant=self.request.user.profile)
+        return Application.objects.filter(job__static_id=job_static_id)
+    
+    def create(self, request, *args, **kwargs):
+        try:
+            job = Job.objects.get(static_id = request.data.get("job_id"))
+            applicant = request.user.profile
+            resume = request.FILES.get("resume")
+            Application.objects.create(job=job,applicant=applicant,resume=resume)
+            return Response({"message":"Application created successfully"},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message":str(e)},status=status.HTTP_400_BAD_REQUEST)

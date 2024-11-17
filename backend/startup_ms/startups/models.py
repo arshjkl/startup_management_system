@@ -80,4 +80,24 @@ class Job(models.Model):
         verbose_name_plural = "Jobs"
     
 
+class Application(models.Model):
+    
+    """
+    Attributes:
 
+    Job - many to one
+    Applicant - many to one
+    Status
+    """
+    
+    static_id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
+    job = models.ForeignKey(Job,on_delete=models.CASCADE,related_name="applications")
+    applicant = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="applications")
+    date_of_application = models.DateField(auto_now_add=True)
+    resume = models.FileField(upload_to="resumes/")
+    
+    def __str__(self):
+        return f"{self.applicant} - {self.job}"
+    
+    class Meta:
+        verbose_name_plural = "Applications"
