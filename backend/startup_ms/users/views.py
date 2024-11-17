@@ -65,7 +65,11 @@ class GetUserAPI(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response(
-            {"user_type": request.user.profile.user_type},
+            {
+                "user_type": request.user.profile.user_type,
+                "name":request.user.get_full_name(),
+                "email":request.user.email,
+            },
             status=status.HTTP_200_OK,
         )
         

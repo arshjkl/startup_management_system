@@ -30,10 +30,10 @@ export default function Login() {
             let data = await res.json()
             console.log(data)
             console.log(res.headers)
-            if(data.user_type === "Student"){
+            if(data.user_type.toUpperCase() === "STUDENT"){
                 redirect("/student")
             }
-            else if(data.user_type === "Founder"){
+            else if(data.user_type.toUpperCase() === "FOUNDER"){
                 redirect("/founder")
             }
 
