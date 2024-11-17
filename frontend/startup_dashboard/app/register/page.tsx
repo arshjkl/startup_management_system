@@ -13,7 +13,7 @@ export default function Register() {
         })
         
         if (res.status/100 == 2){
-            redirect(`/${formdata.get("type")}`)
+            redirect(`/login`)
         }
     }
 

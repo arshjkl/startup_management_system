@@ -1,13 +1,19 @@
-import { redirect } from "next/navigation"
+"use client"
+import { redirect, useRouter } from "next/navigation"
 import { fetchApi } from "../utils/api"
+import { FormEvent } from "react";
+import { log } from "console";
 
 
 
 export default function Login() {
 
-    async function login(formdata:FormData){
-        'use server'
-        const res = await fetchApi("users/login/",{
+    const router = useRouter();
+
+    async function login(event:FormEvent<HTMLFormElement>){
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget)
+        const res = await fetch("/login/api/",{
             method:"POST",
             cache:"no-cache",
             headers: {
@@ -15,8 +21,8 @@ export default function Login() {
                 "Content-Type": "application/json"
             },
             body:JSON.stringify({
-                username:formdata.get("email"),
-                password:formdata.get("password")
+                username:formData.get("email"),
+                password:formData.get("password")
             })
         })
 
@@ -25,7 +31,7 @@ export default function Login() {
         if (res.status/100 == 2){
             let data = await res.json()
             console.log(data)
-            console.log(await res.headers)
+            console.log(res.headers)
             if(data.user_type === "student"){
                 redirect("/student")
             }
@@ -38,7 +44,7 @@ export default function Login() {
 
     return (
         <div className="w-full h-fit pt-10">
-            <form className="w-1/3 mx-auto border border-black rounded-lg h-full p-2 flex flex-col gap-3 items-center" action={login}>
+            <form className="w-1/3 mx-auto border border-black rounded-lg h-full p-2 flex flex-col gap-3 items-center" onSubmit={login}>
                 <p className="text-lg font-bold mx-auto text-center">Please login yourself</p>
                 <input type="text" name="email" placeholder="Email" className="w-full border border-black rounded-md p-1"/>
                 <input type="password" name="password" placeholder="Password" className="w-full border border-black rounded-md p-1"/>

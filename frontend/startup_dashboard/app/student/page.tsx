@@ -1,5 +1,7 @@
+import { fetchApiAuth } from "../utils/api"
 
 interface Startup {
+    static_id: string
     name: string
     domain: string
     valuation: number
@@ -12,7 +14,7 @@ interface StartupCardProps {
 
 function StartupCard({startup}:StartupCardProps) {
     return (
-        <a className="rounded-lg border border-black p-2 text-md text-black flex flex-col hover:shadow-md hover:border-blue-400" href={`/student/${startup.name}`}>
+        <a className="rounded-lg border border-black p-2 text-md text-black flex flex-col hover:shadow-md hover:border-blue-400" href={`/student/${startup.static_id}`}>
             <p className="text-center font-bold">
                 {startup.name}
             </p>
@@ -26,24 +28,13 @@ function StartupCard({startup}:StartupCardProps) {
     );
 }
 
-function Startups(){
-    const startups = [
-        {
-            name:"ABC",
-            domain: "Fintech",
-            valuation: 100
-        },
-        {
-            name:"ACF",
-            domain: "Edtect",
-            valuation: 100
-        },
-        {
-            name:"gapg",
-            domain: "gh",
-            valuation: 100
-        },
-    ]
+async function Startups(){
+    const res = await fetchApiAuth("startups/list/",{
+        method:"GET",
+        cache:"no-cache"
+    })
+
+    const startups = await res.json()
 
     return (
 

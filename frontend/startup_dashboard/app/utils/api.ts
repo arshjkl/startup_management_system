@@ -10,15 +10,13 @@ export function fetchApi(url:string, options:object = {}, ...args) {
   }, ...args)
 }
 
-
-
-
-export function fetchApiAuth(url:string, data = {}) {
+export async function  fetchApiAuth(url:string, data = {}) {
+    const kukies = await cookies()
     return fetchApi(url, {
-        cache: data.cache || 'no-cache',
+        cache: 'no-cache',
         ...data,
         headers: {
-          'Cookie': cookies().getAll().map((cookie) => `${cookie.name}=${cookie.value}`).join('; '),
+          'Cookie': kukies.getAll().map((cookie) => `${cookie.name}=${cookie.value}`).join('; '),
           ...data.headers
         }
     })
